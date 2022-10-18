@@ -24,3 +24,12 @@ ORDER BY average_assignment_duration ASC;
 -- GROUP BY student
 -- HAVING avg(assignment_submissions.duration) < avg(assignments.duration)
 -- ORDER BY average_assignment_duration;
+
+SELECT name, CONCAT(ROUND(100*(population / (
+                                              SELECT population
+                                              FROM world
+                                              WHERE name = 'Germany'))
+                                              ,'%') AS percentage
+
+FROM world
+WHERE continent = 'Europe'
