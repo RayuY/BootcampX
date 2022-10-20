@@ -1,3 +1,6 @@
+DROP TABLE IF EXISTS assignments CASCADE;
+DROP TABLE IF EXISTS assignment_submissions CASCADE;
+
 CREATE TABLE assignments (
   id SERIAL PRIMARY KEY NOT NULL,
   name VARCHAR(255),
@@ -5,7 +8,7 @@ CREATE TABLE assignments (
   day INT,
   chapter INT,
   duration INT
-)
+);
 
 CREATE TABLE assignment_submissions (
   id SERIAL PRIMARY KEY NOT NULL,
@@ -13,4 +16,4 @@ CREATE TABLE assignment_submissions (
   student_id INTEGER REFERENCES students(id) ON DELETE CASCADE,
   submission_date DATE,
   duration INT
-)
+);
