@@ -2,19 +2,10 @@ const { Pool } = require('pg');
 
 const pool = new Pool({
   user: 'labber',
-  password: '123',
+  password: 123,
   host: 'localhost',
   database: 'bootcampx'
 });
-
-
-const client = new Client({
-  user: 'labber',
-  password: '123',
-  host: 'localhost',
-  database: 'bootcampx'
-});
-
 
 pool.query(`
   SELECT DISTINCT teachers.name as teacher, cohorts.name as cohort
@@ -24,10 +15,13 @@ pool.query(`
   JOIN students ON student_id = students.id
   JOIN cohorts ON cohort_id = cohorts.id
   
-  WHERE cohorts.name = ${process.argv[2]}
+  WHERE cohorts.name LIKE '%${process.argv[2] || 'JUL02'}%'
   ORDER BY teacher;
   `)
 .then(res => {
-  console.log(res);
+  res.rows.forEach(user => {
+    console.log(`${user.cohort}: ${user.teacher}`);
+  })
+  pool.end();
 })
 .catch(err => console.error('query error', err.stack));
